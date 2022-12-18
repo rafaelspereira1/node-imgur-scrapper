@@ -1,0 +1,31 @@
+{
+  "name": "imgur-scrapper",
+  "version": "1.0.0",
+  "description": "Scrapper for random imgur pictures",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelspereira1/node-imgur-scrapper.git"
+  },
+  "author": "Rafael Pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaelspereira1/node-imgur-scrapper/issues"
+  },
+  "homepage": "https://github.com/rafaelspereira1/node-imgur-scrapper#readme",
+  "devDependencies": {
+    "@types/figlet": "^1.5.5",
+    "@types/node": "^18.11.17",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "figlet": "^1.5.2"
+  }
+}
