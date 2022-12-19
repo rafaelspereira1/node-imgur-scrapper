@@ -14,23 +14,30 @@ const asciiArt = () => {
         console.log("Something went wrong...");
         reject(err);
       }
-      console.log(data);
+      console.log(data + "\n");
       resolve(data);
     });
   });
 };
 
-const readConsole = () => {
-  const readLine = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  readLine.question("How many pictures do you want? " + "\n", (answer) => {
-    const numPictures = parseInt(answer, 10);
-    console.log(`You want ${numPictures} pictures.`);
-    readLine.close();
-    return numPictures;
+const readConsole = (): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    const readLine = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+    // The unary + operator is used to convert its operand to a number.
+    readLine.question("How many images do you want to download? ", (answer) => {
+      if (isNaN(+answer)) {
+        console.log("Please enter a number.");
+        readLine.close();
+        reject();
+      } else {
+        readLine.close();
+        console.log(`Downloading ${answer} images...`);
+        resolve(+answer);
+      }
+    });
   });
 };
 
@@ -58,6 +65,8 @@ const generateUrl = (url: string = "https://i.imgur.com/") => {
 };
 
 async function scrapePictures() {
+  let currentValueDownloaded = 0;
+  const downloadLimit = await readConsole();
   while (true) {
     const url = generateUrl();
     const response = await fetch(url);
@@ -82,10 +91,14 @@ async function scrapePictures() {
       fs.unlinkSync(file);
     } else {
       console.log(`[+] Valid: ${url}`);
+      currentValueDownloaded++;
+    }
+    if (currentValueDownloaded === downloadLimit) {
+      console.log("Download complete!");
+      break;
     }
   }
 }
 
 await asciiArt();
-//readConsole();
 scrapePictures();
