@@ -9,6 +9,10 @@
     "allowSyntheticDefaultImports": true,
     "removeComments": true,
     "noImplicitAny": true,
+    "esModuleInterop": true,
     "moduleResolution": "node"
+  },
+  "ts-node": {
+    "esm": true
   }
 }
